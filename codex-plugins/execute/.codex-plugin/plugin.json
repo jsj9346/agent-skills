@@ -1,0 +1,21 @@
+{
+  "name": "execute",
+  "version": "1.0.0",
+  "description": "확정된 플랜을 실행하고 리포트·검증·커밋으로 닫음",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/execute",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "execute",
+    "shortDescription": "확정된 플랜을 실행하고 리포트·검증·커밋으로 닫음",
+    "longDescription": "확정된 플랜(plans/YYYYMMDD-*-plan.md)을 실제로 실행하는 스킬. \"플랜대로 작업해줘\", \"execute\", \"실행해줘\", \"@plans/... 진행해줘\", \"T-001부터 시작\" 같은 요청에 사용한다. 실행 = 플랜의 작업 목록을 검증 조건까지 포함해 완주하고, 실행 리포트(작업 원장)·독립 검증·통합 게이트·기록·커밋으로 닫는 것. 플랜 수정도 설계 변경도 아니다 — 그런 상황을 만나면 중단하고 보고한다. 플랜이 없으면 /make-plan이 먼저고, 설계가 없으면 /make-design이 먼저다 — 계약 없는 실행은 하지 않는다. 인자로 플랜 경로(선택적으로 `T-00x부터` 재개 지점) 또는 verify 리포트 경로를 받는다. interview→make-design→make-plan→execute→verify 체인의 구현 단계다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "이 플랜대로 실행해줘"
+  }
+}

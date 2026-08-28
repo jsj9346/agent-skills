@@ -48,12 +48,34 @@ codex plugin add design-harness@jsj9346-skills
 | [design-harness](plugins/design-harness) | 프로젝트 목적에 맞는 AI 작업 환경(하네스) — CLAUDE.md/AGENTS.md·커맨드·훅·검증 체계를 설계 | ✅ | ✅ |
 | [design-loop](plugins/design-loop) | 목표 실행 루프(Observe→Decide→Act→Verify)를 설계해 복붙 가능한 `/goal` 명령어 한 줄로 압축 제안 | ✅ | ✅ |
 | [documentize-context](plugins/documentize-context) | 세션의 맥락(목표·결정·피드백·워크플로우)을 재사용 가능한 마크다운 문서로 정리 | ✅ | – |
+| [execute](plugins/execute) | 확정된 플랜을 실행하고 실행 리포트(작업 원장)·독립 검증·커밋으로 닫음 | ✅ | ✅ |
 | [explain](plugins/explain) | 작업·문서·코드를 비개발자 눈높이로 쉽게 설명(읽기 전용, 대상 수정 없음) | ✅ | ✅ |
 | [interview](plugins/interview) | 작업을 설계하기 전에 인터뷰 형식으로 "무엇을 왜 만들까"를 확정해 결정 기록으로 남김 | ✅ | ✅ |
 | [make-agents](plugins/make-agents) | 프로젝트 목적에 맞는 서브에이전트/에이전트 팀을 설계·생성하고 스킬을 라우팅 | ✅ | ✅ |
+| [make-design](plugins/make-design) | 확정된 방향(결정 기록·미결 항목)을 경계·계약의 정본 설계 문서로 확정 | ✅ | ✅ |
+| [make-plan](plugins/make-plan) | 설계 문서를 실행 가능한 플랜(작업·검증 조건·의존성·롤백)으로 변환 | ✅ | ✅ |
 | [milestone](plugins/milestone) | 프로젝트의 활성 마일스톤(하나)을 종료 조건 기준으로 설정·조회·종료 | ✅ | ✅ |
 | [review-harness](plugins/review-harness) | 이미 구축된 AI 작업 환경의 중복 하네스·과최적화를 진단하고 걷어냄 | ✅ | ✅ |
 | [verify](plugins/verify) | 작업물을 정본 문서에 대조해 독립 검증하고 판정 리포트 문서를 남김 | ✅ | ✅ |
+
+## 개발 사이클 체인
+
+다섯 스킬이 논의→설계→계획→구현→검증의 개발 사이클을 이룬다. 각 단계의 산출물이 다음
+단계의 입력이고, 각 스킬은 마무리에서 **권장 모델 + 다음 명령**(대상 경로 포함)을
+제안해 사이클이 이어진다:
+
+```
+/interview <주제>                        → discussions/I-<slug>.md (결정 기록)
+/make-design discussions/I-<slug>.md     → docs/<주제>.md (정본 설계 문서)
+/make-plan docs/<주제>.md                → plans/YYYYMMDD-<주제>-plan.md
+/execute plans/YYYYMMDD-<주제>-plan.md   → 코드 + plans/YYYYMMDD-<주제>-execute-report.md
+/verify <대상 경로>                       → plans/YYYYMMDD-<대상>-verify-report.md
+```
+
+verify의 발견은 `/execute <리포트>`(소수·명확) 또는 `/make-plan <리포트>`(다수·얽힘)로
+되돌아 사이클을 다시 돈다. 문서 결함이면 `/make-design`, 방향 자체가 갈리면
+`/interview`가 재진입점이다. 각 스킬은 단독으로도 동작한다 — 전 단계 산출물이 없으면
+그 단계를 먼저 제안하고 멈춘다.
 
 ## 라이선스
 

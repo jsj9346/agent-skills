@@ -1,0 +1,21 @@
+{
+  "name": "make-design",
+  "version": "1.0.0",
+  "description": "확정된 방향을 경계·계약의 정본 설계 문서로 확정",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/make-design",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "make-design",
+    "shortDescription": "확정된 방향을 경계·계약의 정본 설계 문서로 확정",
+    "longDescription": "확정된 방향(인터뷰 결정 기록 또는 미결 항목)을 받아 **경계와 계약을 정본 설계 문서로 확정**하는 스킬. \"설계하자\", \"make-design\", \"~를 설계해줘\", \"인터페이스/ 스키마/구조를 정하자\", \"미결 항목을 해소하자\" 같은 요청에 사용한다. 설계 = 무엇을 만들지의 계약을 문서로 확정하는 것 — 코드 작성도, 실행 플랜도 아니다 (플랜은 /make-plan, 구현은 /execute가 담당). 인자로 인터뷰 결정 기록 (`discussions/I-<slug>.md`), 설계 문서 경로, 또는 문서의 미결 절(`§번호`)을 받는다. interview→make-design→make-plan→execute→verify 체인의 설계 단계다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "이 결정 기록을 설계 문서로 전개해줘"
+  }
+}

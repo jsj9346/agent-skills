@@ -1,0 +1,11 @@
+{
+  "name": "make-plan",
+  "description": "설계 문서를 실행 가능한 플랜(작업·검증 조건)으로 변환",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/make-plan",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

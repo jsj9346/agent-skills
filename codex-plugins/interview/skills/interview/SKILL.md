@@ -16,14 +16,14 @@ description: >-
 > **Codex CLI 전용 스킬이다** — 호출 형식(`$interview <주제>`)과 마무리의
 > «다음 명령»이 Codex의 스킬 체계(`$HOME/.agents/skills`·`$스킬명` 호출·
 > AGENTS.md 자동 로딩)를 전제한다. Claude Code 사용자는 저장소 루트의
-> SKILL.md를 사용할 것. 본문의 `/design`은 `$design`으로 읽는다.
+> SKILL.md를 사용할 것. 본문의 `/make-design`은 `$make-design`으로 읽는다.
 
 **결정이 산출물인 스킬.** explain이 "그게 무슨 말인가"에 답하고 design이
 "어떻게 만들까"에 답한다면, 이 스킬은 **"무엇을 왜 만들까(혹은 만들지 말까)"**를
 인터뷰로 확정한다. 작업 프로세스의 **논의** 단계를 실행하는 도구다.
 
 > **경계 규칙 — 이 스킬의 심장**: how(구조·인터페이스·파일 단위 변경)가 나오기
-> 시작하면 논의는 끝난 것이다. 즉시 기록을 닫고 `$design`으로 넘긴다.
+> 시작하면 논의는 끝난 것이다. 즉시 기록을 닫고 `$make-design`으로 넘긴다.
 
 ## 0. 이 프로젝트를 먼저 읽는다
 
@@ -40,7 +40,7 @@ description: >-
 
 ## 1. 스킵 게이트 — 인터뷰 시작 전 판정
 
-아래 중 **하나도 해당 없으면** "논의가 불필요한 주제입니다 — $design 직행을
+아래 중 **하나도 해당 없으면** "논의가 불필요한 주제입니다 — $make-design 직행을
 권합니다"라고 말하고 종료한다. 모든 작업에 논의를 붙이는 순간 이 단계는
 세금이 된다.
 
@@ -92,7 +92,7 @@ R4의 선택지는 각각 `채택 조건:`(어떤 상황이면 이게 정답인�
 ```markdown
 # I-<slug> — <한 줄 주제>
 - 일자: YYYY-MM-DD · 상태: 결정됨 | 미결 있음
-- 다음: $design discussions/I-<slug>.md
+- 다음: $make-design discussions/I-<slug>.md
 
 ## 배경          → 소비처: design의 문제 정의 절 (재작성 금지, 인용)
 ## 성공 기준     → 소비처: plan의 step→verification 쌍, verify의 통과 조건,
@@ -127,4 +127,4 @@ R4의 선택지는 각각 `채택 조건:`(어떤 상황이면 이게 정답인�
 안내한다:
 
 > 권장 모델 — 상위(high reasoning) · 미결 2건을 마저 닫는 설계
-> 다음: `$design discussions/I-<slug>.md`
+> 다음: `$make-design discussions/I-<slug>.md`

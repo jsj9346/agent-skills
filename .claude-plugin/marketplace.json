@@ -64,6 +64,24 @@
       "source": "./plugins/verify",
       "description": "작업물을 정본 문서에 대조해 검증하고 판정 리포트를 남김",
       "version": "1.0.0"
+    },
+    {
+      "name": "make-design",
+      "source": "./plugins/make-design",
+      "description": "확정된 방향을 경계·계약의 정본 설계 문서로 확정",
+      "version": "1.0.0"
+    },
+    {
+      "name": "make-plan",
+      "source": "./plugins/make-plan",
+      "description": "설계 문서를 실행 가능한 플랜(작업·검증 조건)으로 변환",
+      "version": "1.0.0"
+    },
+    {
+      "name": "execute",
+      "source": "./plugins/execute",
+      "description": "확정된 플랜을 실행하고 리포트·검증·커밋으로 닫음",
+      "version": "1.0.0"
     }
   ]
 }

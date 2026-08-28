@@ -1,0 +1,11 @@
+{
+  "name": "execute",
+  "description": "확정된 플랜을 실행하고 리포트·검증·커밋으로 닫음",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/execute",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

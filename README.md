@@ -22,20 +22,22 @@ agent-skills/
 
 같은 스킬이라도 두 런타임의 SKILL.md 내용은 서로 다를 수 있습니다(런타임별 메커니즘 차이 반영).
 
+마켓플레이스 카탈로그 이름은 `jsj9346-skills`입니다 (`agent-skills`는 Anthropic 공식 마켓플레이스 전용 예약어라 Claude Code가 거부합니다). 레포 이름은 `agent-skills` 그대로입니다.
+
 ## 설치
 
 **Claude Code**
 
 ```
 /plugin marketplace add jsj9346/agent-skills
-/plugin install design-harness@agent-skills
+/plugin install design-harness@jsj9346-skills
 ```
 
 **Codex CLI**
 
 ```
 codex plugin marketplace add jsj9346/agent-skills
-codex plugin add design-harness@agent-skills
+codex plugin add design-harness@jsj9346-skills
 ```
 
 ## 포함된 스킬

@@ -8,7 +8,7 @@ model: inherit
 
 > **Claude Code 전용 스킬이다** — 호출 형식과 마무리의 «다음 명령»이 Claude
 > Code의 스킬·커스텀 커맨드 체계를 전제한다. Codex CLI 사용자는 변형판
-> [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/explain/skills/explain/SKILL.md)를 사용할 것.
 
 **이해시키는 것이 산출물인 스킬.** 다른 스킬들이 "무엇을 할까"를 정한다면, 이 스킬은 **"그게 대체 무슨 말인가"**에 답한다.
 

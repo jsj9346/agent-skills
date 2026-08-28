@@ -15,7 +15,7 @@ description: >-
 
 > **Claude Code 전용 스킬이다** — 절차가 Claude Code의 구성 요소
 > (`.claude/agents/`·SKILL.md frontmatter 라우팅·Agent 도구)를 전제한다.
-> Codex CLI 사용자는 변형판 [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> Codex CLI 사용자는 변형판 [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/make-agents/skills/make-agents/SKILL.md)를 사용할 것.
 
 > design-* 계열에서의 자리: **design-harness**는 작업 환경(정책·절차·검증·상태)을,
 > **design-graph**는 실행 단위의 연결 구조(계약·라우팅·상태 전달)를 설계한다.

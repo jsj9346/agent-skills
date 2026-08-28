@@ -17,7 +17,7 @@ description: >-
 
 > **Claude Code 전용 스킬이다** — 절차가 Claude Code의 구성 요소(CLAUDE.md·
 > `.claude/`·hooks·permissions)를 전제한다. Codex CLI 사용자는 변형판
-> [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/design-harness/skills/design-harness/SKILL.md)를 사용할 것.
 
 > 지침(CLAUDE.md)은 "무엇을 하라"고 말하고, harness는 그것이 실제로 지켜지게
 > 만든다(도구·강제·검증). 이 스킬은 그 harness를 **Gap만 채우는 최소 형태**로

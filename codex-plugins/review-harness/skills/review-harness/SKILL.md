@@ -18,7 +18,7 @@ description: >-
 
 > **Codex CLI 전용 변형판이다** — 절차가 Codex의 구성 요소(AGENTS.md·
 > `~/.codex/config.toml`·skills·rules·approval policy·sandbox)를 전제한다.
-> Claude Code 사용자는 [../SKILL.md](../SKILL.md)를 사용할 것.
+> Claude Code 사용자는 [Claude Code판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/plugins/review-harness/skills/review-harness/SKILL.md)를 사용할 것.
 
 > design-harness가 **Gap을 채운다면**, 이 스킬은 **Gap이 사라졌거나 애초에
 > 없었던 항목을 걷어낸다.** 같은 차집합을 반대 방향으로 돈다:
@@ -76,7 +76,7 @@ design-harness와 공유하는 기본 골격이다. 4종의 **내용**(항목 �
    복구 가능한가"**다. 복구 불가면 KEEP(강제층), 복구 가능이면 REMOVE. 같은
    Invariant가 AGENTS.md에도 있으면 **강제층이 이미 보장하므로 지침 쪽을 제거**한다.
 
-3. **판정 근거 2단** — 모델 능력 판정은 [../references/model-baseline.md](../references/model-baseline.md)
+3. **판정 근거 2단** — 모델 능력 판정은 [references/model-baseline.md](references/model-baseline.md)
    1차 선별 → 애매한 항목만 실측 ablation 2차(§3-b). 다음은 baseline만으로
    REMOVE 할 수 없고 ablation이 필수다: (a) baseline이 Tier B로 분류한 항목,
    (b) 사용자·프로젝트 고유 맥락이 걸린 항목, (c) 강제층 항목.
@@ -200,7 +200,7 @@ rules 승격) · `KEEP` · `WATCH`
 
 #### 3-a. baseline 1차 선별
 
-[../references/model-baseline.md](../references/model-baseline.md)와 대조한다.
+[references/model-baseline.md](references/model-baseline.md)와 대조한다.
 
 - **Tier A** → D1 중복, REMOVE 후보
 - **Tier C** → KEEP. 하네스가 존재해야 하는 영역

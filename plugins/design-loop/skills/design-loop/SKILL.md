@@ -14,7 +14,7 @@ description: >-
 
 > **Claude Code 전용 스킬이다** — 산출 명령어가 Claude Code의 `/goal` 문법과
 > `+Nk` 토큰 지시자를 전제한다. Codex CLI 사용자는 변형판
-> [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/design-loop/skills/design-loop/SKILL.md)를 사용할 것.
 
 > [design-harness](https://github.com/jsj9346/design-harness)가 **한 Node가
 > 일을 잘하게**, [design-graph](https://github.com/jsj9346/design-graph)가

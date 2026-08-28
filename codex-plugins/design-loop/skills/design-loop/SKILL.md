@@ -13,7 +13,7 @@ description: >-
 
 > **Codex CLI 전용 스킬이다** — 산출 명령어가 Codex TUI의 `/goal` 슬래시
 > 명령을 전제한다. Claude Code 사용자는 상위 디렉토리의
-> [SKILL.md](../SKILL.md)를 사용할 것.
+> [Claude Code판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/plugins/design-loop/skills/design-loop/SKILL.md)를 사용할 것.
 
 > design-harness가 **한 Node가 일을 잘하게**, design-graph가 **여러 Node가
 > 함께 일을 잘하게** 만든다면, 이 스킬은 **하나의 목표가 끝까지 도달하게**

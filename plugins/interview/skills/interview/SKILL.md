@@ -16,7 +16,7 @@ model: inherit
 
 > **Claude Code 전용 스킬이다** — 호출 형식과 AskUserQuestion 기반 라운드, 마무리의
 > «다음 명령»이 Claude Code의 스킬·커스텀 커맨드 체계를 전제한다. Codex CLI
-> 사용자는 변형판 [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> 사용자는 변형판 [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/interview/skills/interview/SKILL.md)를 사용할 것.
 
 **결정이 산출물인 스킬.** explain이 "그게 무슨 말인가"에 답하고 design이
 "어떻게 만들까"에 답한다면, 이 스킬은 **"무엇을 왜 만들까(혹은 만들지 말까)"**를

@@ -18,7 +18,7 @@ description: >-
 
 > **Claude Code 전용 스킬이다** — 절차가 Claude Code의 구성 요소(CLAUDE.md·
 > `.claude/`·skills·hooks·permissions·plugins)를 전제한다. Codex CLI 사용자는
-> 변형판 [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> 변형판 [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/review-harness/skills/review-harness/SKILL.md)를 사용할 것.
 
 > [design-harness](https://github.com/jsj9346/design-harness)가 **Gap을 채운다면**,
 > 이 스킬은 **Gap이 사라졌거나 애초에 없었던 항목을 걷어낸다.** 같은 차집합을

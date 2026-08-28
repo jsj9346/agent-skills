@@ -89,7 +89,7 @@ baseline만으로 REMOVE 하지 말 것.
   (SKILL.md 원칙 4).
 - **GPT-5 계열 (Codex CLI)** — Tier A 구성은 유사하나 **강제층의 형태가 다르다**:
   Claude Code의 훅 대신 approval policy·sandbox mode가 그 역할을 한다. 런타임
-  중복(D2) 판정 기준이 달라지므로 [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/review-harness/skills/review-harness/SKILL.md)를 볼 것.
+  중복(D2) 판정 기준이 달라지므로 [SKILL.md](../SKILL.md)를 볼 것.
 
 ## 갱신 절차
 

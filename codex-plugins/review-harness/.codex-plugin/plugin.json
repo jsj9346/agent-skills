@@ -1,6 +1,6 @@
 {
   "name": "review-harness",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "구축된 작업 환경의 중복·과최적화를 진단",
   "author": {
     "name": "jsj9346"

@@ -15,7 +15,7 @@ description: >-
 
 > **Claude Code 전용 스킬이다** — 절차가 Claude Code의 구성 요소(서브에이전트·
 > 커스텀 커맨드·Workflow·hooks)를 전제한다. Codex CLI 사용자는 변형판
-> [codex/SKILL.md](codex/SKILL.md)를 사용할 것.
+> [Codex판 SKILL.md](https://github.com/jsj9346/agent-skills/blob/main/codex-plugins/design-graph/skills/design-graph/SKILL.md)를 사용할 것.
 
 > [design-harness](https://github.com/jsj9346/design-harness)가 **한 Node가
 > 일을 잘하게** 만든다면, 이 스킬은 **그 Node들이 함께 일을 잘하게** 만든다.

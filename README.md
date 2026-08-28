@@ -53,6 +53,7 @@ codex plugin add design-harness@jsj9346-skills
 | [make-agents](plugins/make-agents) | 프로젝트 목적에 맞는 서브에이전트/에이전트 팀을 설계·생성하고 스킬을 라우팅 | ✅ | ✅ |
 | [milestone](plugins/milestone) | 프로젝트의 활성 마일스톤(하나)을 종료 조건 기준으로 설정·조회·종료 | ✅ | ✅ |
 | [review-harness](plugins/review-harness) | 이미 구축된 AI 작업 환경의 중복 하네스·과최적화를 진단하고 걷어냄 | ✅ | ✅ |
+| [verify](plugins/verify) | 작업물을 정본 문서에 대조해 독립 검증하고 판정 리포트 문서를 남김 | ✅ | ✅ |
 
 ## 라이선스
 

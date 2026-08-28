@@ -58,6 +58,12 @@
       "source": "./plugins/review-harness",
       "description": "구축된 작업 환경의 중복·과최적화를 진단",
       "version": "1.0.0"
+    },
+    {
+      "name": "verify",
+      "source": "./plugins/verify",
+      "description": "작업물을 정본 문서에 대조해 검증하고 판정 리포트를 남김",
+      "version": "1.0.0"
     }
   ]
 }

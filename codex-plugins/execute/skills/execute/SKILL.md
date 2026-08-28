@@ -19,7 +19,8 @@ model: inherit
 > «다음 명령»이 Codex의 스킬 체계(`$HOME/.agents/skills`·`$스킬명` 호출·
 > AGENTS.md 자동 로딩)를 전제한다. Claude Code 사용자는 저장소의
 > `plugins/execute` 쪽 SKILL.md를 사용할 것. 본문의 `/verify`·`/make-plan`·
-> `/make-design`은 각각 `$verify`·`$make-plan`·`$make-design`으로 읽는다.
+> `/make-design`·`/current-status`는 각각 `$verify`·`$make-plan`·`$make-design`·
+> `$current-status`로 읽는다.
 
 확정된 플랜을 실행한다. **실행 = 플랜의 작업 목록을 검증 조건까지 포함해 완주하고,
 기록과 커밋으로 닫는 것.** 플랜 수정도, 설계 변경도 아니다 — 그런 상황을 만나면
@@ -232,7 +233,7 @@ $<스킬명> <대상 파일 경로>
 |---|---|
 | 정상 종료 + §7 트리거 걸림 | `/verify <트리거가 가리키는 대상 경로>` — 어느 트리거인지 함께 |
 | 정상 종료, 트리거 없음, 플랜에 남은 작업 있음 | `/execute plans/<같은 플랜>.md T-00x부터` |
-| 정상 종료, 플랜 완주 | 다음 작업 후보 조회로 넘긴다 |
+| 정상 종료, 플랜 완주 | `/current-status <주제>` — 다음 사이클 판정으로 넘긴다 |
 | 계약과 어긋남 발견으로 중단 | `/make-design <정본 문서 경로 §번호>` + 무엇을 판정해야 하는지 한 줄 |
 | 설계 결함 발견으로 중단 | `/make-design <정본 문서 경로 §번호>` — **`/verify`가 아니다**(§7: 문서가 틀렸으면 검증은 그린이 난다) |
 | 플랜 범위를 벗어나는 작업이 필요 | `/make-plan <설계 문서 경로>` + 범위 확장이 사용자 결정임을 한 줄 |

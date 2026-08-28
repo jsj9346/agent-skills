@@ -1,0 +1,11 @@
+{
+  "name": "current-status",
+  "description": "기록과 실물을 교차해 현황을 판정하고 다음 작업·우선순위를 제안",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/current-status",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

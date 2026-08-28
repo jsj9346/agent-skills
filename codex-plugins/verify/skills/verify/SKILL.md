@@ -17,7 +17,8 @@ description: >-
 > «다음 명령»이 Codex의 스킬 체계(`$HOME/.agents/skills`·`$스킬명` 호출·
 > AGENTS.md 자동 로딩)를 전제한다. Claude Code 사용자는 저장소의
 > `plugins/verify` 쪽 SKILL.md를 사용할 것. 본문의 `/execute`·`/make-plan`·
-> `/make-design`은 각각 `$execute`·`$make-plan`·`$make-design`으로 읽는다.
+> `/make-design`·`/current-status`는 각각 `$execute`·`$make-plan`·`$make-design`·
+> `$current-status`로 읽는다.
 
 작업물을 **정본 문서에 대조해** 검증하고 판정 리포트를 문서로 남긴다. **검증 = 계약과
 실물의 차이를 찾아 판정하는 것.** 수정도, 설계 변경도 아니다 — 발견은 리포트로 남기고
@@ -183,7 +184,7 @@ $<스킬명> <대상 파일 경로>
 | 위반 다수 또는 서로 얽힘 | `/make-plan <리포트 경로>` |
 | 문서 부정확(구현이 옳고 문서가 틀림) | `/make-design <해당 문서 경로 §번호>` — 문서 수정은 결정 기록이 선행이다 |
 | 미규정 — 판정 필요 | `/make-design <정본 문서 경로 §번호>` + 판정해야 할 항목 수를 한 줄 |
-| 발견 없음(그린) | 다음 작업 후보 조회 — 다만 **"게이트가 검사하는 범위 안에서"** 그린이라는 단서를 함께 |
+| 발견 없음(그린) | `/current-status <주제>` — 다만 **"게이트가 검사하는 범위 안에서"** 그린이라는 단서를 함께 |
 | 수단 부재로 검증 못 한 범위가 남음 | 다음 명령과 별개로 **무엇을 못 봤는지 경로째** 남긴다 — 다음 검증의 입력이다 |
 
 (표의 스킬명은 이 마켓플레이스의 interview→make-design→make-plan→execute→verify 체인

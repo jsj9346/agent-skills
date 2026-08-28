@@ -17,8 +17,8 @@ model: inherit
 > «다음 명령»이 Codex의 스킬 체계(`$HOME/.agents/skills`·`$스킬명` 호출·
 > AGENTS.md 자동 로딩)를 전제한다. Claude Code 사용자는 저장소의
 > `plugins/make-design` 쪽 SKILL.md를 사용할 것. 본문의 `/make-plan`·`/verify`·
-> `/interview`·`/make-design`은 각각 `$make-plan`·`$verify`·`$interview`·
-> `$make-design`으로 읽는다.
+> `/interview`·`/make-design`·`/current-status`는 각각 `$make-plan`·`$verify`·
+> `$interview`·`$make-design`·`$current-status`로 읽는다.
 
 **설계 = 경계와 계약을 정해 문서로 확정하는 것.** 코드 작성도, 실행 플랜도 아니다.
 interview가 "무엇을 왜"를 정했다면, 이 스킬은 **"어떻게 생겼는가"**(구조·인터페이스·
@@ -141,7 +141,7 @@ $<스킬명> <대상 파일 경로>
 | 미결이 남아 후속 설계가 필요하다 | `/make-design docs/<문서>.md §<미결 번호>` — 남은 미결 번호를 그대로 쓴다 |
 | 방향 자체가 갈려 설계로 못 정한다 | `/interview <주제>` — how가 아니라 what이 열려 있다는 뜻이다 |
 | 설계 도중 선행 결정이 없어 중단했다 | `/make-design <선행 결정의 정본 경로 §번호>` + 무엇을 정해야 재개되는지 한 줄 |
-| 산출물이 문서뿐이고 구현이 없다 | 다음 작업 후보 조회로 넘긴다 |
+| 산출물이 문서뿐이고 구현이 없다 | `/current-status <주제>` — 다음 작업 후보 조회로 넘긴다 |
 
 (표의 스킬명은 이 마켓플레이스의 interview→make-design→make-plan→execute→verify 체인
 기준이다. 프로젝트의 실제 스킬명이 다르면 그 이름으로, 없으면 산문 제안으로 바꾼다.)

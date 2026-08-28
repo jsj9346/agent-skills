@@ -44,6 +44,7 @@ codex plugin add design-harness@jsj9346-skills
 
 | 스킬 | 설명 | Claude Code | Codex CLI |
 | --- | --- | --- | --- |
+| [current-status](plugins/current-status) | 원장·기록·실물을 교차 검증해 현황을 판정하고 우선순위·다음 명령을 제안 | ✅ | ✅ |
 | [design-graph](plugins/design-graph) | 여러 실행 단위(Agent·Tool·Validator·스크립트·사람)를 연결해 파이프라인/멀티 에이전트 워크플로우 그래프를 설계 | ✅ | ✅ |
 | [design-harness](plugins/design-harness) | 프로젝트 목적에 맞는 AI 작업 환경(하네스) — CLAUDE.md/AGENTS.md·커맨드·훅·검증 체계를 설계 | ✅ | ✅ |
 | [design-loop](plugins/design-loop) | 목표 실행 루프(Observe→Decide→Act→Verify)를 설계해 복붙 가능한 `/goal` 명령어 한 줄로 압축 제안 | ✅ | ✅ |
@@ -76,6 +77,11 @@ verify의 발견은 `/execute <리포트>`(소수·명확) 또는 `/make-plan <�
 되돌아 사이클을 다시 돈다. 문서 결함이면 `/make-design`, 방향 자체가 갈리면
 `/interview`가 재진입점이다. 각 스킬은 단독으로도 동작한다 — 전 단계 산출물이 없으면
 그 단계를 먼저 제안하고 멈춘다.
+
+사이클과 사이클 사이에는 관제 스킬 둘이 선다: **`/current-status`**가 원장·기록·실물을
+교차 검증해 "다음에 무엇을"을 판정하고(각 스킬이 사이클을 닫으며 넘기는 수신처),
+**`/milestone`**이 "그중 무엇이 이번 목표인가"의 범위 기준선(`MILESTONE.md`)을 든다 —
+current-status는 그 범위 표 밖의 항목을 순위에 올리지 않는다.
 
 ## 라이선스
 

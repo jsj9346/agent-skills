@@ -1,0 +1,21 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "작업 방향을 인터뷰로 확정해 결정 기록으로 남김",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/interview",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "interview",
+    "shortDescription": "작업 방향을 인터뷰로 확정해 결정 기록으로 남김",
+    "longDescription": "작업을 설계하기 전에, 인터뷰 형식으로 사용자와 \"무엇을 왜 만들까(혹은 만들지 말까)\"를 확정하고 그 결정을 후속 단계(design·plan·verify·milestone)가 그대로 읽어 쓰는 입력 계약 문서로 남기는 스킬. 요청의 해석이 갈리거나, 결정이 되돌리기 어렵거나, 성공 기준을 한 문장으로 내릴 수 없을 때 사용한다. \"인터뷰해줘\", \"요구사항 인터뷰부터 하자\", \"논의하자\", \"방향 잡자\", \"이거 어떻게 접근할까\", \"interview\" 같은 요청에 사용한다. 코드·설계 문서는 건드리지 않고 결정 기록 파일 하나만 쓴다. vault의 discuss(자료 탐색 대화)와 다르다 — 이 스킬은 작업 방향의 결정이 산출물이다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "이 작업 방향을 인터뷰로 정하자"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "agent-skills",
+  "owner": {
+    "name": "jsj9346"
+  },
+  "description": "jsj9346의 개인 에이전트 스킬 모음 (design-*, make-agents, milestone 등)",
+  "plugins": [
+    {
+      "name": "design-graph",
+      "source": "./plugins/design-graph",
+      "description": "여러 실행 단위를 연결해 워크플로우 그래프를 설계",
+      "version": "1.0.0"
+    },
+    {
+      "name": "design-harness",
+      "source": "./plugins/design-harness",
+      "description": "프로젝트에 맞는 AI 작업 환경(하네스)을 설계",
+      "version": "1.0.0"
+    },
+    {
+      "name": "design-loop",
+      "source": "./plugins/design-loop",
+      "description": "목표 실행 루프를 설계해 /goal 명령어로 압축 제안",
+      "version": "1.0.0"
+    },
+    {
+      "name": "documentize-context",
+      "source": "./plugins/documentize-context",
+      "description": "세션의 맥락을 재사용 가능한 문서로 정리",
+      "version": "1.0.0"
+    },
+    {
+      "name": "explain",
+      "source": "./plugins/explain",
+      "description": "작업·코드를 비개발자 눈높이로 쉽게 설명",
+      "version": "1.0.0"
+    },
+    {
+      "name": "interview",
+      "source": "./plugins/interview",
+      "description": "작업 방향을 인터뷰로 확정해 결정 기록으로 남김",
+      "version": "1.0.0"
+    },
+    {
+      "name": "make-agents",
+      "source": "./plugins/make-agents",
+      "description": "프로젝트에 맞는 서브에이전트 팀을 설계·생성",
+      "version": "1.0.0"
+    },
+    {
+      "name": "milestone",
+      "source": "./plugins/milestone",
+      "description": "활성 마일스톤을 설정·조회·종료",
+      "version": "1.0.0"
+    },
+    {
+      "name": "review-harness",
+      "source": "./plugins/review-harness",
+      "description": "구축된 작업 환경의 중복·과최적화를 진단",
+      "version": "1.0.0"
+    }
+  ]
+}

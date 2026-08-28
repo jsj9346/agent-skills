@@ -1,0 +1,11 @@
+{
+  "name": "design-harness",
+  "description": "프로젝트에 맞는 AI 작업 환경(하네스)을 설계",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/design-harness",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

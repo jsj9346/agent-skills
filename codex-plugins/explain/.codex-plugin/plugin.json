@@ -1,0 +1,21 @@
+{
+  "name": "explain",
+  "version": "1.0.0",
+  "description": "작업·코드를 비개발자 눈높이로 쉽게 설명",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/explain",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "explain",
+    "shortDescription": "작업·코드를 비개발자 눈높이로 쉽게 설명",
+    "longDescription": "작업·문서·이슈·코드를 개발 지식이 없는 사람의 눈높이로 설명한다. \"설명해줘\", \"explain\", \"이게 무슨 말이야\", \"쉽게 설명해줘\", \"왜 이걸 해야 돼\", \"이 용어 무슨 뜻이야\", \"지금 뭐 하는 건지 모르겠어\", \"초보자도 알게 설명해줘\" 같은 요청에 사용한다. 전문용어를 그 자리에서 풀고, 작업이 필요한 이유를 \"안 하면 무슨 일이 생기는가\"로 설명하며, 가능하면 비유를 동원한다. 읽기 전용이다 — 설명 대상을 수정하지 않고 기록도 남기지 않는다. 인자로 설명 대상(문서 경로·§번호·파일:줄번호·이슈/카드 ID·용어)을 받는다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "이거 쉽게 설명해줘"
+  }
+}

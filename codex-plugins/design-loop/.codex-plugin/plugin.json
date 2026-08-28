@@ -1,0 +1,21 @@
+{
+  "name": "design-loop",
+  "version": "1.0.0",
+  "description": "목표 실행 루프를 설계해 /goal 명령어로 압축 제안",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/design-loop",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "design-loop",
+    "shortDescription": "목표 실행 루프를 설계해 /goal 명령어로 압축 제안",
+    "longDescription": "하나의 목표(Goal)를 Observe → Decide → Act → Verify → 재시도/종료로 반복 실행하는 목표 실행 루프(goal loop)를 설계하고, 그 설계를 **복붙 가능한 /goal 명령어 한 줄**(goal + 프롬프트 + 토큰 제한 옵션)로 압축해 제안하는 스킬. 사람이 루프를 머릿속으로만 구성하면 느리고 오류가 잦으며, 설계 없이 /goal을 걸면 검증 기준·탈출 조건·예산이 없는 무한 루프가 된다. \"루프 설계해줘\", \"goal 루프 만들어줘\", \"goal 명령어 만들어줘\", \"이 목표 반복 실행 구조 잡아줘\", \"design-loop\" 등을 다룰 때 반드시 사용할 것.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "이 목표를 반복 실행하는 루프를 설계해줘"
+  }
+}

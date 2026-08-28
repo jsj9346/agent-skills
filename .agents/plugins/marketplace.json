@@ -1,0 +1,104 @@
+{
+  "name": "agent-skills",
+  "interface": {
+    "displayName": "jsj9346 Agent Skills"
+  },
+  "plugins": [
+    {
+      "name": "design-graph",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/design-graph"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "design-harness",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/design-harness"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "design-loop",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/design-loop"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "explain",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/explain"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "interview",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/interview"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "make-agents",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/make-agents"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "milestone",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/milestone"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "review-harness",
+      "source": {
+        "source": "local",
+        "path": "./codex-plugins/review-harness"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

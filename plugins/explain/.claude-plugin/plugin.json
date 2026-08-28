@@ -1,0 +1,11 @@
+{
+  "name": "explain",
+  "description": "작업·코드를 비개발자 눈높이로 쉽게 설명",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/explain",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

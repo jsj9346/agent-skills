@@ -1,0 +1,11 @@
+{
+  "name": "documentize-context",
+  "description": "세션의 맥락을 재사용 가능한 문서로 정리",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/documentize-context",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

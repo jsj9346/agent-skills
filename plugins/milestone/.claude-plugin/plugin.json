@@ -1,0 +1,11 @@
+{
+  "name": "milestone",
+  "description": "활성 마일스톤을 설정·조회·종료",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/milestone",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

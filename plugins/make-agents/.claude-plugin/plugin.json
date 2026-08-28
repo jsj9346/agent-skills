@@ -1,0 +1,11 @@
+{
+  "name": "make-agents",
+  "description": "프로젝트에 맞는 서브에이전트 팀을 설계·생성",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/make-agents",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

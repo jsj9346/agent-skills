@@ -1,0 +1,21 @@
+{
+  "name": "design-graph",
+  "version": "1.0.0",
+  "description": "여러 실행 단위를 연결해 워크플로우 그래프를 설계",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/design-graph",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "design-graph",
+    "shortDescription": "여러 실행 단위를 연결해 워크플로우 그래프를 설계",
+    "longDescription": "여러 실행 단위(Agent·Tool·Validator·스크립트·사람)를 연결해 하나의 작업 시스템을 만드는 그래프(graph)를 설계·생성하는 스킬. 다단계 파이프라인· 멀티 에이전트 워크플로우·검증 게이트가 있는 작업 흐름을 셋업하거나, 기존 워크플로우의 연결 구조를 재설계·진단할 때 사용한다. 핵심은 Node 간 Contract — 그래프 모양보다 Edge마다의 입출력 계약·실패 행선지·상태 전달을 먼저 확정하고, 라우팅은 deterministic을 기본값으로 한다. \"그래프 만들어줘\", \"파이프라인 설계\", \"에이전트 연결/오케스트레이션 설계\", \"워크플로우 구조 잡아줘\" 등을 다룰 때 반드시 사용할 것.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "새 워크플로우의 그래프를 설계해줘"
+  }
+}

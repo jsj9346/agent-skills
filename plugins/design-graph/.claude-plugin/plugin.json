@@ -1,0 +1,11 @@
+{
+  "name": "design-graph",
+  "description": "여러 실행 단위를 연결해 워크플로우 그래프를 설계",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/design-graph",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

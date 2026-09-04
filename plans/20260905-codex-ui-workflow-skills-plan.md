@@ -1,6 +1,7 @@
 # Codex UI Workflow Skills 확장 실행 플랜
 
-- 상태: **초안**
+- 상태: **중단 (2026-09-05, T-005까지 완료 / T-006 inner browser gate `Operation not permitted`)**
+- 실행 리포트: `plans/20260905-codex-ui-workflow-skills-execute-report.md`
 - 작성일: 2026-09-05
 - 정본 설계 문서: `docs/codex-ui-workflow-skills.md`
 - 선행 정본: `docs/codex-ui-design-skills.md`

@@ -29,6 +29,9 @@ UI 구현 전에 무엇을 시각적 근거로 삼고 `DESIGN.md`를 만들거�
   문구, 에셋을 자동 복제하지 않는다.
 - 접근하지 못한 URL·Figma와 보이지 않는 화면 상태·breakpoint는 추측하지 않고
   `Reference blocked` 및 미확인으로 기록한다.
+- `translate-reference`의 주 참고물에 접근하지 못하면 기존 정본이나 휴리스틱을 그
+  참고물의 내용처럼 대체하지 않는다. 사용자가 별도의 fallback 범위를 승인하지 않았다면
+  reference 번역을 중단한다.
 
 ## 같은 역할의 문서를 먼저 찾는다
 

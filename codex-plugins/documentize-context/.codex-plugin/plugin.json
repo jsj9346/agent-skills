@@ -1,0 +1,21 @@
+{
+  "name": "documentize-context",
+  "version": "1.0.0",
+  "description": "세션의 맥락을 재사용 가능한 문서로 정리",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/documentize-context",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "documentize-context",
+    "shortDescription": "세션의 맥락을 재사용 가능한 문서로 정리",
+    "longDescription": "유저와 AI가 협업한 대화의 컨텍스트(목표·제약·결정·피드백과 교정·실제로 통한 워크플로우·실패 경로·의존 자원)를 구조화된 마크다운 문서로 남기는 스킬. 문서의 1차 독자는 이 대화에 없었던 미래의 스킬 작성자(사람 또는 AI)다 — 문서만 보고도 워크플로우를 재현하고 SKILL.md 초안을 쓸 수 있을 만큼 상세하게 기록한다. \"documentize-context\", \"이 대화 문서화해줘\", \"컨텍스트 문서로 남겨줘\", \"이 세션을 스킬로 만들 수 있게 정리해줘\" 같은 요청에 사용한다. 기본 저장 위치는 docs/context/YYYY-MM-DD-<topic>.md이며, 재사용할 것이 없는 세션이면 빈 문서를 만들지 않고 그렇다고 말한다. 마무리에서 스킬 후보 판정과 함께 $skill-creator로 이어갈 다음 명령을 제안한다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "이 세션의 맥락을 스킬로 만들 수 있게 문서로 정리해줘"
+  }
+}

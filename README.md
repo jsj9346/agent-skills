@@ -48,7 +48,7 @@ codex plugin add design-harness@jsj9346-skills
 | [design-graph](plugins/design-graph) | 여러 실행 단위(Agent·Tool·Validator·스크립트·사람)를 연결해 파이프라인/멀티 에이전트 워크플로우 그래프를 설계 | ✅ | ✅ |
 | [design-harness](plugins/design-harness) | 프로젝트 목적에 맞는 AI 작업 환경(하네스) — CLAUDE.md/AGENTS.md·커맨드·훅·검증 체계를 설계 | ✅ | ✅ |
 | [design-loop](plugins/design-loop) | 목표 실행 루프(Observe→Decide→Act→Verify)를 설계해 복붙 가능한 `/goal` 명령어 한 줄로 압축 제안 | ✅ | ✅ |
-| [documentize-context](plugins/documentize-context) | 세션의 맥락(목표·결정·피드백·워크플로우)을 재사용 가능한 마크다운 문서로 정리 | ✅ | – |
+| [documentize-context](plugins/documentize-context) | 세션의 맥락(목표·결정·피드백·워크플로우)을 재사용 가능한 마크다운 문서로 정리 | ✅ | ✅ |
 | [execute](plugins/execute) | 확정된 플랜을 실행하고 실행 리포트(작업 원장)·독립 검증·커밋으로 닫음 | ✅ | ✅ |
 | [explain](plugins/explain) | 작업·문서·코드를 비개발자 눈높이로 쉽게 설명(읽기 전용, 대상 수정 없음) | ✅ | ✅ |
 | [interview](plugins/interview) | 작업을 설계하기 전에 인터뷰 형식으로 "무엇을 왜 만들까"를 확정해 결정 기록으로 남김 | ✅ | ✅ |

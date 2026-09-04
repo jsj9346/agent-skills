@@ -1,6 +1,7 @@
 # 구현 플랜 — Codex `design-ui` 플러그인
 
-- 상태: **초안**
+- 상태: **완료 (2026-09-04)**
+- 실행 리포트: `plans/20260904-codex-ui-design-skills-execute-report.md`
 - 작성일: 2026-09-04
 - 정본 설계: `docs/codex-ui-design-skills.md`
 - 구현 범위: Codex 전용 `design-ui` 플러그인과 그 안의 `design-ui`·`review-ui`

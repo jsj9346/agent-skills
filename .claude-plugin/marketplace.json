@@ -88,6 +88,12 @@
       "source": "./plugins/current-status",
       "description": "기록과 실물을 교차해 현황을 판정하고 다음 작업·우선순위를 제안",
       "version": "1.0.0"
+    },
+    {
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "작업 중 막힌 질문을 출처 붙은 답으로 바꿔 조사 노트로 남김",
+      "version": "1.0.0"
     }
   ]
 }

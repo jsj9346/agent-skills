@@ -1,0 +1,21 @@
+{
+  "name": "research",
+  "version": "1.0.0",
+  "description": "작업 중 막힌 질문을 출처 붙은 답으로 바꿔 조사 노트로 남김",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/research",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "research",
+    "shortDescription": "작업 중 막힌 질문을 출처 붙은 답으로 바꿔 조사 노트로 남김",
+    "longDescription": "작업 도중 특정 부분에서 조사가 필요할 때, 질문 하나를 근거 붙은 답으로 바꿔 조사 노트 파일로 남기는 스킬. 외부 자료(공식 문서·라이브러리 소스·논문·웹)와 내부 자료(현재 코드베이스·프로젝트 정본·git 이력) 모두를 다룬다. \"조사해줘\", \"research\", \"이거 어떻게 동작하는지 알아봐\", \"전례 있나 찾아봐\", \"근거 찾아줘\" 같은 요청에 사용한다. 산출물은 근거(출처·확인 방법·버전)가 붙은 조사 노트다 — 발견이 어느 결정에 영향을 주는지는 표시하되 결정·권장은 하지 않는다. 답이 이미 대화나 정본에 있으면 파일 없이 그 자리에서 답한다. 개발 사이클 체인의 어느 단계에서든 곁가지로 호출해 그 단계로 되돌아가며, 단독으로도 쓸 수 있다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "지금 막힌 부분을 조사해서 근거 붙은 답을 노트로 남겨줘"
+  }
+}

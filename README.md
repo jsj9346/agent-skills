@@ -56,6 +56,7 @@ codex plugin add design-harness@jsj9346-skills
 | [make-design](plugins/make-design) | 확정된 방향(결정 기록·미결 항목)을 경계·계약의 정본 설계 문서로 확정 | ✅ | ✅ |
 | [make-plan](plugins/make-plan) | 설계 문서를 실행 가능한 플랜(작업·검증 조건·의존성·롤백)으로 변환 | ✅ | ✅ |
 | [milestone](plugins/milestone) | 프로젝트의 활성 마일스톤(하나)을 종료 조건 기준으로 설정·조회·종료 | ✅ | ✅ |
+| [research](plugins/research) | 작업 중 막힌 질문을 출처 붙은 답으로 바꿔 조사 노트 문서로 남김(결정은 하지 않음) | ✅ | ✅ |
 | [review-harness](plugins/review-harness) | 이미 구축된 AI 작업 환경의 중복 하네스·과최적화를 진단하고 걷어냄 | ✅ | ✅ |
 | [verify](plugins/verify) | 작업물을 정본 문서에 대조해 독립 검증하고 판정 리포트 문서를 남김 | ✅ | ✅ |
 
@@ -82,6 +83,11 @@ verify의 발견은 `/execute <리포트>`(소수·명확) 또는 `/make-plan <�
 교차 검증해 "다음에 무엇을"을 판정하고(각 스킬이 사이클을 닫으며 넘기는 수신처),
 **`/milestone`**이 "그중 무엇이 이번 목표인가"의 범위 기준선(`MILESTONE.md`)을 든다 —
 current-status는 그 범위 표 밖의 항목을 순위에 올리지 않는다.
+
+어느 단계에서든 조사가 필요하면 **`/research <질문>`**이 곁가지로 선다 — 출처 붙은
+답을 `research/R-<slug>.md`에 남기고, 발견이 닿는 단계(방향이면 `/interview`, 설계
+계약이면 `/make-design`, 구현 세부면 원래 단계)로 되돌아갈 명령을 제안한다.
+결정은 하지 않는다.
 
 ## 검증
 

@@ -1,0 +1,11 @@
+{
+  "name": "research",
+  "description": "작업 중 막힌 질문을 출처 붙은 답으로 바꿔 조사 노트로 남김",
+  "version": "1.0.0",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/plugins/research",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT"
+}

@@ -45,6 +45,30 @@ after에도 사용한다.
 발견은 실제 화면에서 관찰된 결과와 재현 단계에 연결한다. DOM 수치나 정적 코드만으로
 시각 판정을 대신하지 않는다.
 
+선택된 `ready-for-build` UI 명세가 있으면 finding의 `expected`에 명세 경로와 절 또는
+정확한 `UI-AC-*` ID를 기록한다. 다른 디자인 정본이면 마찬가지로 경로와 해당 절을
+기록한다. 일반 원칙만 근거라면 `heuristic`이라고 명시한다. 선택된 non-ready 명세와
+독립적인 `GeneralAudit`에서는 그 명세를 expected로 인용하지 않는다.
+
+## Acceptance 판정
+
+UI 명세의 acceptance check는 owner/evidence 조합에 맞는 수단으로만 판정한다.
+
+| owner | evidence | 판정 수단 | 허용 결과 |
+|---|---|---|---|
+| `codex` | `render` | 명시된 viewport·state의 실제 화면 근거 | `pass`, `fail`, `unverified` |
+| `codex` | `automated-check` | 프로젝트에 이미 있는 관련 검사 | `pass`, `fail`, `unverified` |
+| `user` | `user-decision` | 같은 check에 대한 사용자의 명시적 승인·거절 | `awaiting-user-acceptance`, `pass`, `fail` |
+
+세 조합 밖의 입력은 명세 계약 오류다. 사용자 소유 check는 결정 전
+`awaiting-user-acceptance`이며 Codex가 화면을 보고 자동으로 `pass` 처리하지 않는다.
+사용자의 명시적 승인 뒤에만 `pass`, 거절 뒤에만 `fail`로 바꾼다. Codex 결과에
+`awaiting-user-acceptance`, 사용자 결과에 `unverified`를 기록하지 않는다.
+
+`GeneralAudit`은 acceptance result를 만들지 않는다. non-ready 명세 때문에 명세 기반
+판정을 하지 못한 사실은 `non-ready 명세로 인해 미평가`로 보고하며, 이를 임의의
+`unverified` 결과로 만들지 않는다.
+
 ## Severity
 
 | severity | 판정 기준 |

@@ -18,8 +18,8 @@ description: >-
 
 ```text
 ReviewUiRequest =
-  | Audit  { target, baseline?, viewports?, states? }
-  | Repair { target, baseline?, viewports?, states?, explicit_fix_request: true }
+  | Audit  { target: UiTarget, spec_path?, baseline?, viewports?, states? }
+  | Repair { target: UiTarget, spec_path?, baseline?, viewports?, states?, explicit_fix_request: true }
 ```
 
 - “검토해줘”, “Visual QA”, “반응형 깨짐 찾아줘”는 `Audit`이다.
@@ -29,17 +29,100 @@ ReviewUiRequest =
 - `target`을 저장소나 실행 중인 앱에서 합리적으로 찾을 수 없고 선택에 따라 결과가 크게
   달라지면 질문한다. 질문에 답할 수 없는 비대화형 실행이면 대상 부재를 blocker로 남긴다.
 
+## target과 UI 명세를 먼저 선택한다
+
+request와 UI 명세는 같은 `UiTarget` tagged union을 사용한다.
+
+```text
+UiTarget =
+  | RouteTarget { kind: route, key: canonical project-router pattern }
+  | ComponentTarget {
+      kind: component,
+      key: <owner-kind>:<owner-key>#<lowercase-kebab-case component slug>
+    }
+  | ScreenSetTarget { kind: screen-set, key: lowercase-kebab-case stable slug }
+  | NewAppTarget { kind: new-app, key: lowercase-kebab-case project-local app slug }
+```
+
+Route key는 query와 hash를 제거하고 `/`로 시작하는 프로젝트 router pattern을 유지한다.
+root가 아닌 route의 trailing slash만 제거하며 framework의 dynamic segment 표기를 바꾸지
+않는다. Component owner는 `global` 또는 `route`·`screen-set`·`new-app` target이고,
+`global` owner key는 `project`다. 예: `global:project#button`,
+`route:/settings/profile#profile-form`. component key에 module/export path를 쓰지 않는다.
+
+같은 target은 case-sensitive canonical `(kind, key)` exact match뿐이다. 명세 ID·경로·표시
+이름·mtime·날짜·사전식 순서·alias 유사성은 equality나 최신 판정에 쓰지 않는다. 명시 UI
+명세가 target의 유일한 입력이면 그 명세 target을 request target으로 정규화할 수 있다.
+사용자가 별도 target도 명시했고 둘이 다르면 다음 응답 전용 결과로 중단한다.
+
+```text
+Design conflict = {
+  explicit_target: UiTarget,
+  spec_target: UiTarget,
+  spec_path: exact user-specified UI spec path,
+  material_effect: why the mismatch changes the reviewed screen or flow,
+  resolution_needed: choose explicit target | use spec target | provide matching spec
+}
+```
+
+이때 명세 target을 고쳐 맞추거나 다른 target으로 fallback하지 않고 명세 선택·Audit·Repair를
+시작하지 않는다.
+
+canonical target이 같은 후보만 다음 순서로 선택한다.
+
+1. 현재 요청에서 사용자가 명시한 정확한 명세 경로
+2. 프로젝트 지침이나 명세 인덱스가 해당 target의 active 명세로 지정한 정확한 경로
+3. 같은 target의 `ready-for-build` 후보가 정확히 하나인 경우
+4. 하나를 고를 수 없으면 `NeedsInput { candidate_paths }`
+
+```text
+UiSpecSelection =
+  | Selected { path }
+  | NoSpec
+  | NeedsInput { candidate_paths }
+```
+
+명시·active 지정 없이 non-ready 후보만 하나여도 `NoSpec`으로 무시하거나 자동 선택하지
+않고 후보를 나열한 `NeedsInput`으로 끝낸다. 복수 후보도 수정 시각이나 파일명으로 고르지
+않는다. 명시 또는 active로 선택된 명세가 non-ready이면 다른 ready 명세로 fallback하지
+않고 아래 계약을 적용한다.
+
+```text
+NonReadyReviewHandling =
+  | HaltForSpec {
+      selected_path,
+      selected_status,
+      affected_target,
+      required_input,
+      choices: [resume-spec, request-general-audit]
+    }
+  | GeneralAudit {
+      trigger: explicit-user-request,
+      authority: existing review authority excluding the non-ready spec as expected,
+      acceptance_results: none,
+      repair_allowed: false
+    }
+```
+
+기본값은 `HaltForSpec`이다. 다섯 필드와 두 선택지를 보고하고 target-specific verdict,
+acceptance 판정, Repair를 시작하지 않는다. 사용자가 선택된 non-ready 명세와 독립적인 일반
+Visual Audit을 명시한 경우에만 `GeneralAudit`을 수행한다. 이 경로는 기존 review authority만
+사용하고 non-ready 명세를 `expected`로 인용하지 않으며 acceptance result와 Repair를 만들지
+않는다. 보고서에 `general-audit` 범위, 명세 기반 판정 제외 이유, `non-ready 명세로 인해
+미평가`를 기록한다. 이는 `unverified` acceptance result가 아니다.
+
 ## 판정 근거를 먼저 확정한다
 
 기대값은 아래에서 숫자가 작은 근거를 우선해 도출한다.
 
 1. 현재 사용자의 명시적 요구와 승인된 작업 범위
 2. 대상 저장소의 `AGENTS.md` 및 프로젝트 지침
-3. `DESIGN.md` 또는 같은 역할을 하는 프로젝트 디자인 문서
-4. 디자인 토큰과 공용 컴포넌트 계약
-5. 현재 렌더링된 제품과 기존 UI 코드에서 반복 확인되는 패턴
-6. 이번 작업에 첨부된 스크린샷·URL·Figma·무드보드
-7. 일반적인 디자인 휴리스틱
+3. 위 선택 규칙으로 하나로 정한 `ready-for-build` target UI 명세
+4. `DESIGN.md` 또는 같은 역할을 하는 프로젝트 디자인 문서
+5. 디자인 토큰과 공용 컴포넌트 계약
+6. 현재 렌더링된 제품과 기존 UI 코드에서 반복 확인되는 패턴
+7. 이번 작업에 첨부된 스크린샷·URL·Figma·무드보드
+8. 일반적인 디자인 휴리스틱
 
 상위 근거와 하위 근거가 충돌하면 조용히 덮어쓰지 말고 보고서에 근거, 충돌, 영향을
 기록한다. 디자인 선택이 필요하면 발견 상태를 `design-decision-required`로 두며 review
@@ -47,18 +130,23 @@ ReviewUiRequest =
 일반 휴리스틱에 따른 제안을 구분하고, 취향을 계약 위반으로 표현하지 않는다. 접근하지
 못한 URL·Figma나 보이지 않는 화면 상태는 추측하지 않는다.
 
+선택된 ready 명세는 제품 전체 정본을 대신하는 것이 아니라 해당 target의 기대값이다.
+`GeneralAudit`에서는 위 3번을 제외한다.
+
 ## 실행 준비
 
 1. 프로젝트 루트, 대상 route·component, 현재 HEAD, 저장소 지침, 실행·검사 명령을
    확인한다.
 2. 디자인 정본, 토큰, 공용 컴포넌트, 관련 기존 화면을 읽어 기대값과 충돌을 기록한다.
-3. 사용자·프로젝트가 지정한 viewport와 상태를 우선하고, 지정이 없으면
+3. 선택된 ready 명세가 있으면 screen·flow·responsive rule과 acceptance check를 검토
+   행렬에 연결한다.
+4. 사용자·프로젝트가 지정한 viewport와 상태를 우선하고, 지정이 없으면
    [Visual QA 판정 기준](references/visual-qa-rubric.md)을 읽어 관련 행렬을 만든다.
-4. 프로젝트 규약이 있으면 그 리포트 위치를 사용하고, 없으면
+5. 프로젝트 규약이 있으면 그 리포트 위치를 사용하고, 없으면
    `reports/YYYYMMDD-review-ui-<target>.md`에
    [리포트 템플릿](assets/REVIEW-UI.template.md)을 복사해 채운다. `<target>`은 경로에
    안전한 짧은 이름으로 바꾼다.
-5. 앱을 실행하고 대상 행렬의 실제 브라우저 결과를 캡처한다. 자동 테스트나 정적 코드
+6. 앱을 실행하고 대상 행렬의 실제 브라우저 결과를 캡처한다. 자동 테스트나 정적 코드
    검사는 렌더링 증거를 대신하지 않는다.
 
 렌더링 능력은 직접 실행 파일이나 런타임 import 확인 하나로 없다고 단정하지 않는다.
@@ -84,7 +172,8 @@ runner가 해석할 수 있는 기존 CLI를 비파괴적인 version/help 명령
 1. 검토 전 HEAD와 제품 소스·`DESIGN.md` 또는 동등 정본의 상태를 기록한다.
 2. 관련 viewport·상태 행렬을 실제로 렌더링하고 before 캡처를 남긴다.
 3. 각 발견을 아래 `UiFinding` 스키마로 확정한 뒤 집계를 기록한다.
-4. 제품 소스와 디자인 정본을 변경하지 않고 보고서를 닫는다. 필요하면 시작 전후 diff나
+4. ready 명세의 acceptance checks를 아래 결과 계약으로 판정한다.
+5. 제품 소스와 디자인 정본을 변경하지 않고 보고서를 닫는다. 필요하면 시작 전후 diff나
    hash를 비교해 비파괴성을 확인한다.
 
 Audit 중 수정이 유익해 보여도 고치지 않는다. 사용자가 후속으로 Repair를 명시하면 이미
@@ -104,6 +193,38 @@ Audit 중 수정이 유익해 보여도 고치지 않는다. 사용자가 후속
 
 같은 행렬로 재검증하지 않았거나 after 근거가 없으면 Repair 완료라고 보고하지 않는다.
 
+## Acceptance 판정 계약
+
+ready 명세에서는 다음 세 owner/evidence 조합만 소비한다.
+
+```text
+AcceptanceCheck =
+  | CodexRenderCheck { id, scenario, viewport_or_condition, expected,
+                       owner: codex, evidence: render }
+  | CodexAutomatedCheck { id, scenario, viewport_or_condition, expected,
+                          owner: codex, evidence: automated-check }
+  | UserDecisionCheck { id, scenario, viewport_or_condition, expected,
+                        owner: user, evidence: user-decision }
+
+AcceptanceResult =
+  | CodexAcceptanceResult {
+      check_id: UI-AC-###,
+      status: pass | fail | unverified
+    }
+  | UserAcceptanceResult {
+      check_id: UI-AC-###,
+      status: awaiting-user-acceptance | pass | fail
+    }
+```
+
+`codex + render`는 실제 viewport·state 화면 근거로, `codex + automated-check`는 대상
+프로젝트의 기존 검사로 판정한다. `user + user-decision`은 사용자의 명시적 결정 전
+`awaiting-user-acceptance`, 승인 뒤 `pass`, 거절 뒤 `fail`이다. screenshot은 사용자
+판단을 도울 수 있지만 Codex가 대신 승인하는 근거가 아니다. Codex 결과에는
+`awaiting-user-acceptance`, 사용자 결과에는 `unverified`를 쓰지 않는다. 세 조합 밖의 입력은
+기본값으로 보정하지 않고 명세 계약 오류로 보고한다. Codex는 사용자 소유 check를 자동
+pass 처리하거나 공개를 실행하지 않는다.
+
 ## 발견 계약
 
 각 발견은 다음 아홉 필드를 모두 가진다.
@@ -113,7 +234,7 @@ UiFinding = {
   id: UI-###,
   severity: blocker | major | moderate | minor,
   location: route/component + viewport + UI state,
-  expected: authority source or "heuristic",
+  expected: UI spec section | UI-AC-### | other authority source | "heuristic",
   actual: observed behavior,
   evidence: screenshot path and reproduction steps,
   impact: user-visible consequence,
@@ -125,6 +246,8 @@ UiFinding = {
 severity 판정과 검사 범주, 참고물 비교 규칙은
 [Visual QA 판정 기준](references/visual-qa-rubric.md)을 따른다. 근거가 없는 발견을
 만들지 않고, heuristic 발견의 `expected`에는 반드시 `heuristic`이라고 표시한다.
+ready 명세가 기대값이면 `expected`에 명세 경로와 절 또는 정확한 `UI-AC-*` ID를 기록한다.
+`GeneralAudit`에서는 non-ready 명세를 인용하지 않는다.
 
 ## 렌더링 실패
 
@@ -142,8 +265,11 @@ severity 판정과 검사 범주, 참고물 비교 규칙은
 ## 완료 보고
 
 보고서는 대상·모드·기준 HEAD·디자인 정본, 실행 명령과 검토 행렬, 발견 집계와 상세,
-before 캡처, Repair일 때 변경 파일·검사 결과·after 캡처와 재판정, 미검토 범위와 이유를
-포함해야 한다. Audit은 소스·정본 불변 여부도 함께 보고한다.
+before 캡처, acceptance check별 결과, Repair일 때 변경 파일·검사 결과·after 캡처와 재판정,
+미검토 범위와 이유를 포함해야 한다. Audit은 소스·정본·UI 명세 불변 여부도 함께 보고한다.
+사용자 승인 handoff에는 canonical target, 실제 확인한 viewport·state, open severity 집계,
+`UI-AC-*`별 상태, 알려진 차이와 미검증 범위를 포함한다. Repair가 있었다면 같은
+viewport·state·data 조건의 before/after 근거도 표시한다.
 
 ## 인접 작업과 평가 경계
 

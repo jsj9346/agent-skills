@@ -1,7 +1,7 @@
 {
   "name": "design-ui",
   "version": "1.0.0",
-  "description": "실제 렌더링과 Visual QA를 포함해 UI를 제작하고 검토",
+  "description": "구현 전 UI 정의, 실제 UI 제작과 독립 Visual QA를 연결",
   "author": {
     "name": "jsj9346"
   },
@@ -11,11 +11,11 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "design-ui",
-    "shortDescription": "실제 렌더링과 Visual QA를 포함해 UI를 제작하고 검토",
-    "longDescription": "새 UI 제작·재설계와 참고물의 프론트엔드 코드 번역을 담당하는 design-ui, 구현된 UI를 실제 렌더링해 감사하고 명시적으로 요청받은 경우에만 결함을 고치는 review-ui를 함께 제공하는 Codex 전용 플러그인입니다.",
+    "shortDescription": "UI 정의부터 구현과 독립 Visual QA까지 연결",
+    "longDescription": "구현 전 화면·흐름·상태와 완료 기준을 정의하는 define-ui, 실제 UI 코드와 maker QA를 담당하는 design-ui, 구현 결과를 독립적으로 감사하고 명시적으로 요청받은 경우에만 수정하는 review-ui를 제공하는 Codex 전용 플러그인입니다. UI 명세는 선택적 선행 단계입니다.",
     "developerName": "jsj9346",
     "category": "Developer Tools",
     "capabilities": [],
-    "defaultPrompt": "프로젝트의 디자인 정본을 지키며 UI를 구현하고 실제 렌더링으로 검토해줘"
+    "defaultPrompt": "요청의 목표에 맞춰 UI를 구현 전에 정의하거나 실제 코드로 구현하고, 필요하면 독립 Visual QA까지 수행해줘"
   }
 }

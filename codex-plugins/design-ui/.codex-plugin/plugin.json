@@ -1,0 +1,21 @@
+{
+  "name": "design-ui",
+  "version": "1.0.0",
+  "description": "실제 렌더링과 Visual QA를 포함해 UI를 제작하고 검토",
+  "author": {
+    "name": "jsj9346"
+  },
+  "homepage": "https://github.com/jsj9346/agent-skills/tree/main/codex-plugins/design-ui",
+  "repository": "https://github.com/jsj9346/agent-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "design-ui",
+    "shortDescription": "실제 렌더링과 Visual QA를 포함해 UI를 제작하고 검토",
+    "longDescription": "새 UI 제작·재설계와 참고물의 프론트엔드 코드 번역을 담당하는 design-ui, 구현된 UI를 실제 렌더링해 감사하고 명시적으로 요청받은 경우에만 결함을 고치는 review-ui를 함께 제공하는 Codex 전용 플러그인입니다.",
+    "developerName": "jsj9346",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "프로젝트의 디자인 정본을 지키며 UI를 구현하고 실제 렌더링으로 검토해줘"
+  }
+}

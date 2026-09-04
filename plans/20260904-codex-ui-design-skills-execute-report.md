@@ -19,7 +19,7 @@
 | T-005 구조·계약 정적 검사 | 완료 | 9/9 파일 집합, 2/2 frontmatter, 32개 SKILL 링크, JSON·배제·보호 트리·14개 파일 whitespace·plugin/skill validator 모두 통과 | 없음 | 정본 §9.3 여섯 행 전부 대조 |
 | T-006 Codex 활성화·실패 경로 평가 | 완료 | Playwright 기준 이미지와 D1~D6·R1~R6 명령 실행; 12/12 exit 0, routing·source hash·blocked 판정 검사 통과 | `4ad639e`, `69c7d9b`, `c11930b` | R6 Repair before/after는 샌드박스 브라우저 부재로 미검증 |
 | T-007 독립 재검증·통합 게이트 | 완료 | 독립 재검증 GREEN: 계약 위반 0, 게이트 차단 0, 미규정 0; 링크·JSON·validator·보호 트리·runtime evidence 재확인 | 없음 | 첫 pass의 증거 manifest·R6 문구 2건 수정 후 같은 검증자가 재판정 |
-| T-008 기록 종결·커밋 준비 | 완료 | 완료 상태·통합 게이트·미검증 범위·관련 문서 기록, task file diff 검사 통과 | 없음 | 이 행을 포함한 종결 커밋 직전 상태 |
+| T-008 기록 종결·커밋 준비 | 완료 | 완료 상태·통합 게이트·미검증 범위·관련 문서 기록, task file diff 검사 통과 | `64d89cd` | 종결 리포트·플랜 상태 커밋 |
 
 ## 착수 스냅샷
 

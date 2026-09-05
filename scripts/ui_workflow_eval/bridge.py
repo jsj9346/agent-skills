@@ -531,8 +531,14 @@ def probe_image(args: argparse.Namespace) -> dict[str, Any]:
         "Open the only PNG in this directory with the image viewing tool. Read the six-character "
         "VISUAL CODE shown inside the bordered card. Return exactly CODE=<six characters> and nothing else."
     )
-    command = [args.codex, "exec", "--json", "--sandbox", args.sandbox, "--skip-git-repo-check", prompt]
-    run = subprocess.run(command, cwd=exposed, text=True, capture_output=True, timeout=args.timeout, check=False)
+    command = [
+        args.codex, "exec", "--json", "--ephemeral", "--sandbox", args.sandbox,
+        "--skip-git-repo-check", "--image", str(image),
+    ]
+    run = subprocess.run(
+        command, cwd=exposed, input=prompt, text=True, capture_output=True,
+        timeout=args.timeout, check=False,
+    )
     response, call_id, image_event = extract_codex_response(run.stdout)
     match = re.search(r"CODE=([A-Z0-9]{6})", response)
     comparison = bool(match and secrets.compare_digest(match.group(1), code))

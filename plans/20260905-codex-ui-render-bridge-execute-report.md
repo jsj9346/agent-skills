@@ -18,7 +18,6 @@
 | T-003 캡처 능력·BR0 이미지 게이트 | 완료 | outer PNG 800×500, source/seed 삭제, `validate-probe` 통과, 숨은 6문자 exact match | `b43f1f9` | 기본 호출 1, CLI 형식 재시도 1; call `01a06f61-c8d7-7271-9057-c268c1d70e12` |
 | T-004 BR1~BR6 핵심·실패 경로 | 중단 | BR1 Chromium/자동 검사 성공, 그러나 image-open event 0건·`finalize-inner` exit 2 | 없음 | call `01a06f64-42d7-7f50-9826-da84c8d6b057`; BR2~BR6 미실행 |
 | T-008 중단 기록·정리 | 완료 | 리포트/플랜/workstate 정합, auth/config 0건, secret scan, static gate 재통과 | 이 기록을 닫는 커밋 | T-005~T-007은 의존성상 미실행 |
-| T-001 기준선·선행 증거 적격성 | 완료 | JSON 3개 유효, exact 12 files, source/evidence/installed hash 일치, Playwright API·Chromium 탐지, `git diff --check` green | `20106e9` | 비렌더 U1~U4·U8·U10~U12만 재사용; 렌더·resume·invalid status는 재실행 |
 
 ## 실행 환경
 

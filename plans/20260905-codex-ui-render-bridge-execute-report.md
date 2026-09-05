@@ -14,6 +14,7 @@
 | 작업 | 결과 | 검증 조건 | 커밋 | 비고 |
 |---|---|---|---|---|
 | T-001 기준선·선행 증거 적격성 | 완료 | JSON 3개 유효, exact 12 files, source/evidence/skill inventory 일치, Playwright API import 및 Chromium 탐지, `git diff --check` 통과 | `20106e9` | evidence root `/tmp/ui-render-bridge-eval.7eFm38`; 제품 플러그인 변경 없음 |
+| T-002 평가 전용 렌더 브리지 하네스 | 완료 | unit 19/19, self-test 2/2, Python compile, Node syntax, 역검증 11범주, `git diff --check` 통과 | `42476bc` | stdlib + 기존 Playwright만 사용; 제품 플러그인 변경 없음 |
 | T-001 기준선·선행 증거 적격성 | 완료 | JSON 3개 유효, exact 12 files, source/evidence/installed hash 일치, Playwright API·Chromium 탐지, `git diff --check` green | `20106e9` | 비렌더 U1~U4·U8·U10~U12만 재사용; 렌더·resume·invalid status는 재실행 |
 
 ## 실행 환경

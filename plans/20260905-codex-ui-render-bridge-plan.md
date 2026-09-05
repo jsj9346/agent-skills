@@ -1,10 +1,11 @@
 # Codex UI Render Bridge 재개 실행 플랜
 
-- 상태: 초안
+- 상태: 중단 (2026-09-05, T-003까지 완료 / BR1 same-call image-open 귀속 실패)
 - 작성일: 2026-09-05
 - 정본 설계: `docs/codex-ui-workflow-skills.md` §3.5, §7, §8.2~§8.3, §9
 - 선행 실행 기록: `plans/20260905-codex-ui-workflow-skills-execute-report.md`
 - 실행 명령: `$execute plans/20260905-codex-ui-render-bridge-plan.md`
+- 실행 리포트: `plans/20260905-codex-ui-render-bridge-execute-report.md`
 
 ## 1. 개요
 

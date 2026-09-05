@@ -129,17 +129,6 @@ current-status는 그 범위 표 밖의 항목을 순위에 올리지 않는다.
 계약이면 `/make-design`, 구현 세부면 원래 단계)로 되돌아갈 명령을 제안한다.
 결정은 하지 않는다.
 
-## 검증
-
-모든 `SKILL.md`의 패키지 내부 상대 링크와 런타임 교차 링크가 실제 파일을
-가리키는지 확인한다:
-
-```bash
-python3 scripts/validate_skill_links.py
-```
-
-같은 검사는 push와 pull request마다 GitHub Actions에서도 실행된다.
-
 ## 라이선스
 
 MIT (전체 레포 및 각 플러그인 폴더 동일)

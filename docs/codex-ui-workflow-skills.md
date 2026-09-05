@@ -162,6 +162,13 @@ README에는 세 역할과 대표 호출을 추가한다. v2에서도 MCP 서버
 evidence이고 최종 판정 증거는 사용자의 명시적 결정이다. 사용자 소유 check는 결정 전
 `awaiting-user-acceptance`, 승인 후 `pass`, 거절 후 `fail`이다.
 
+여기서 `owner: codex`는 **판정 주체**를 뜻하며 브라우저 프로세스를 반드시 같은 Codex
+sandbox가 직접 띄워야 한다는 뜻은 아니다. §8.2의 격리 평가에서는 신뢰된 outer runner가
+동일한 immutable case snapshot을 렌더링할 수 있다. 다만 outer runner는 캡처만 생성하며
+pass/fail을 정하지 않는다. 같은 대상 플러그인을 사용하는 후속 Codex adjudication이 실제
+이미지를 열어 판정해야만 `codex + render` 근거가 완성된다. 캡처만 존재하거나 metadata만
+읽은 상태는 `unverified`다.
+
 ### 3.6 동일 target의 UI 명세 선택
 
 UI 명세를 파일명이나 표시 이름으로 비교하지 않는다. request와 `UiSpec`은 같은
@@ -683,7 +690,8 @@ Codex가 추천 의견을 낼 수는 있지만 `owner: user` 항목을 자동으
 | `deploy-ui` | 배포는 UI 품질이 아니라 인프라·권한·롤백 문제다. | UI 프리뷰 배포만의 공통 플랫폼 계약이 여러 프로젝트에서 반복됨 |
 | `prototype-ui` | 현재 목표는 명세와 production UI 구현이며 별도 폐기형 프로토타입 산출물이 요구되지 않았다. | 구현 전 클릭형 프로토타입을 독립 산출물로 반복 요청함 |
 | `inspect-design` | 기존 디자인 확인은 세 UI 스킬의 필수 선행 단계이지 독립 목표가 아니다. | 디자인 시스템 인벤토리 자체가 독립 보고서로 반복 요구됨 |
-| MCP·전용 브라우저 서버 | 기존 Codex와 프로젝트 능력을 먼저 사용한다는 v1 제약을 유지한다. | 실제 프로젝트 평가에서 같은 렌더 blocker가 반복되고 instruction-only 대체 경로가 없음 |
+| MCP·전용 브라우저 서버 | 반복 blocker는 §8.2의 평가 전용 outer capture bridge로 먼저 해소하며 제품 플러그인에 새 runtime 의존성을 넣지 않는다. | bridge로 표현할 수 없는 지속적 interactive session이 여러 실제 프로젝트에서 반복 요구됨 |
+| outer runner의 Visual QA 판정 | capture와 판정을 합치면 `owner: codex`와 독립 검토의 귀속이 사라진다. outer runner는 관측 자료만 만든다. | §3.5의 판정 주체 자체를 바꾸는 사용자 결정이 별도로 승인됨 |
 | 결정론적 UI 명세 생성 스크립트 | 판단 중심 작업이라 정적 템플릿으로 충분하다. | 명세 schema lint나 누락 검사가 반복적으로 실패함 |
 | 휴리스틱 target alias matching | 비슷한 이름·파일명으로 같은 target을 추측하면 다른 명세를 선택할 수 있다. | 프로젝트가 canonical key로 해석되는 명시적 alias registry를 제공함 |
 | 정상 workflow phase의 영속 저장 | instruction-only 작업은 `draft`에서 안전하게 재검사할 수 있고 phase/status 이중 정본을 피한다. | 장시간 작업의 정상 phase를 세션 사이에 반복 재개해야 하고 별도 상태 저장 소유자가 정해짐 |
@@ -732,6 +740,191 @@ Codex가 추천 의견을 낼 수는 있지만 `owner: user` 항목을 자동으
 | U11-T | 명시 명세 target과 별도 target이 다름 | `define-ui`는 preflight `TargetConflict`; `design-ui`·`review-ui`는 응답 전용 `Design conflict`; 명세·제품·Audit·Repair 변경 없음 |
 | U12 | active 지정 없이 동일 target의 `ready-for-build` 명세가 둘 이상 | 후보를 나열한 `Needs input`, 구현 변경 없음 |
 
+#### 8.2.1 렌더 실행 경계
+
+U5~U7·U9와 maker QA·Audit·Repair처럼 실제 화면 근거가 필요한 case는 다음 두 경로 중
+하나로만 검증한다.
+
+```text
+RuntimeRenderPath =
+  | InnerRender {
+      producer_call_id,
+      capture: RenderCaptureEvidence,
+      adjudication: same-call
+    }
+  | OrchestratedRender {
+      producer_call_id,
+      pending: RenderBridgePending,
+      capture: RenderCaptureEvidence,
+      adjudicator_call_id
+    }
+```
+
+`InnerRender`는 대상 skill을 실행한 inner Codex가 브라우저를 띄우고 같은 호출에서 이미지를
+확인하는 기본 경로다. 이 경로가 성공하면 outer bridge를 중복 실행하지 않는다.
+
+`OrchestratedRender`는 평가용 `codex exec --sandbox workspace-write` 안에서 브라우저 생성
+또는 loopback bind만 환경 정책으로 차단될 때 쓰는 대체 경로다. 제품 플러그인의 일반
+runtime 계약이나 persistent 상태를 추가하지 않으며, 첫 호출의 `Render blocked`를 평가
+harness의 `RenderBridgePending` checkpoint로 감싼다. 첫 호출을 나중에 성공으로 소급
+변경하지 않는다.
+
+```text
+RenderBridgePending = {
+  case_id,
+  producer_call_id,
+  skill: design-ui | review-ui,
+  mode: maker-qa | audit | repair-before | repair-after | general-audit,
+  blocker_class: sandbox-browser-startup | sandbox-loopback-bind,
+  blocker_evidence_path,
+  snapshot: ImmutableRenderSnapshot,
+  matrix: NonEmptyList<RenderScenario>
+}
+
+ImmutableRenderSnapshot = {
+  case_realpath,
+  fixture_manifest_sha256,
+  product_manifest_sha256,
+  design_authority_manifest_sha256,
+  ui_spec_manifest_sha256,
+  plugin_inventory_sha256
+}
+```
+
+bridge는 다음 조건을 모두 만족할 때만 시작한다.
+
+1. plugin activation·target/spec selection과 필수 build/automated check가 blocker 없이 끝났다.
+2. 실패가 앱 오류나 selector 오류가 아니라 원본 stderr로 확인되는 두 sandbox 환경 분류 중
+   하나다.
+3. case realpath가 격리 evaluation root 아래이고 저장소 root와 다르다.
+4. 화면·viewport·state 행렬이 non-empty이며 각 항목을 추측 없이 재현할 수 있다.
+5. 제품·디자인 정본·UI 명세·plugin inventory의 snapshot hash가 고정됐다.
+
+앱 자체의 build 실패, 예상 route 부재, 상태 재현 불가, 접근 불가 reference는 bridge로
+우회하지 않는다. 각각 기존 `Build blocked`, `Render blocked`, `Reference blocked` 또는
+`unverified` 계약을 유지한다.
+
+#### 8.2.2 outer capture 계약
+
+outer runner는 inner Codex sandbox 밖이지만 같은 실행 플랜이 소유한 격리 harness 안에서
+동작한다. 입력은 `RenderBridgePending` 하나이며 출력은 다음 구조다.
+
+```text
+RenderCaptureEvidence = {
+  request_sha256,
+  producer_call_id,
+  snapshot: ImmutableRenderSnapshot,
+  browser: { engine, version, executable_sha256 },
+  runner_argv,
+  captures: NonEmptyList<{
+    scenario_id,
+    route_or_file,
+    viewport: { width, height },
+    state,
+    image_path,
+    image_sha256,
+    exit_code
+  }>,
+  product_manifest_sha256_after,
+  design_authority_manifest_sha256_after,
+  ui_spec_manifest_sha256_after,
+  fixture_manifest_sha256_after,
+  plugin_inventory_sha256_after
+}
+
+RenderCaptureResult =
+  | Captured { evidence: RenderCaptureEvidence }
+  | StaleRenderRequest { mismatched_manifests: NonEmptyList<manifest-name> }
+  | IncompleteCapture { missing_scenarios: NonEmptyList<scenario_id> }
+  | CaptureBlocked { command, exit_code, stderr_path, affected_scenarios }
+```
+
+capture 전후 product·design authority·UI spec hash는 snapshot과 같아야 한다. outer runner는
+지정된 evidence subtree에만 이미지와 실행 로그를 쓰며 제품·명세·리포트를 수정하지 않는다.
+실행할 browser adapter와 argv는 평가 플랜이 미리 고정하고 hash로 기록한다. inner Codex가
+case 안에 새로 작성한 임의 shell/script를 outer 권한으로 실행하지 않는다.
+
+`RenderScenario`는 route 또는 case 내부 file, viewport, 이름 있는 state와 재현 절차만
+가진다. 절차는 navigation, query/hash, click, fill with non-secret fixture data, press,
+wait-for-visible, screenshot의 제한된 선언형 action만 허용한다. 임의 JavaScript·shell,
+credential 입력, evaluation root 밖 file 접근, loopback 밖 network는 허용하지 않는다.
+
+snapshot hash가 하나라도 달라졌거나 scenario가 빠졌거나 이미지가 비어 있거나 browser
+exit code가 0이 아니면 `Captured`를 만들지 않고 대응 실패 variant로 끝낸다. 세 실패
+variant는 모두 Visual QA와 `codex + render`를 `unverified`로 유지한다.
+
+#### 8.2.3 Codex adjudication 계약
+
+outer capture 뒤에는 under-test plugin의 같은 skill을 격리 Codex로 다시 호출한다. 후속
+호출은 `producer_call_id`, `RenderBridgePending`, `RenderCaptureEvidence`의 정확한 경로와
+hash를 입력으로 받고, 다음 gate를 통과해야 한다.
+
+bridge case를 시작하기 전 같은 격리 Codex 설정으로 저비용 image adjudication probe를 한
+번 실행한다. plan-owned runner가 파일명·크기·metadata로 답을 알 수 없는 단순 challenge
+image를 만들고, Codex가 이미지를 열어 도형·색 또는 배치를 판별해야 한다. image-open tool
+event가 JSONL에 직접 보이면 그것을 쓰고, schema가 노출하지 않으면 challenge의 숨은 기대값과
+응답을 대조한다. 어느 방식으로도 실제 시각 입력 사용을 귀속할 수 없으면 outer capture를
+시작하지 않고 `image-not-opened`로 전체 bridge case를 중단한다.
+
+1. source·design authority·UI spec·plugin inventory hash가 capture 시점과 같다.
+2. 요청 행렬과 capture의 `scenario_id`가 exact match하며 viewport·state 누락이 없다.
+3. Codex가 각 실제 image를 시각 입력으로 열어 확인한다. 파일 존재·크기·hash·alt text만
+   읽는 것은 판정이 아니다.
+4. finding과 acceptance result는 확인한 capture 경로·scenario와 기존 authority를 인용한다.
+
+```text
+RenderAdjudicationResult =
+  | Adjudicated {
+      adjudicator_call_id,
+      producer_call_id,
+      snapshot: ImmutableRenderSnapshot,
+      opened_images: NonEmptyList<{ scenario_id, image_path, image_sha256 }>,
+      verdict_or_acceptance_results
+    }
+  | AdjudicationUnverified {
+      adjudicator_call_id,
+      reason: stale-snapshot | missing-scenario | image-not-opened | skill-attribution-missing,
+      affected_scenarios
+    }
+```
+
+gate 뒤 `design-ui`는 maker QA, `review-ui`는 Audit/GeneralAudit/Repair의 원래 판정 계약을
+계속 수행한다. outer runner의 의견은 authority가 아니며 adjudicator가 독립적으로
+`pass | fail | unverified`를 정한다. 후속 Codex가 이미지를 열 수 없으면 capture가 있어도
+`unverified`다.
+
+maker QA 또는 Repair adjudication이 소스를 수정하면 모든 이전 capture는 즉시 stale이다.
+새 product hash로 `RenderBridgePending → capture → adjudication`을 다시 수행해야 한다.
+Audit과 GeneralAudit은 기존 비파괴 계약을 유지한다. Repair는 before evidence와 findings를
+먼저 고정하고 수정 뒤 새 snapshot의 같은 scenario 행렬로 after evidence를 만들어야 한다.
+
+#### 8.2.4 평가 귀속과 종료 조건
+
+- skill 활성화·구현·명세 선택 근거는 inner producer/adjudicator JSONL과 설치본 hash chain에
+  귀속한다.
+- browser 실행과 pixel output은 outer runner evidence에 귀속한다.
+- Visual QA·finding·acceptance 판정은 이미지를 연 Codex adjudicator에 귀속한다.
+- 세 귀속 중 하나라도 없으면 해당 render case는 성공이 아니다.
+- direct inner render와 bridged render는 같은 case의 중복 성공으로 세지 않는다.
+- browser가 inner와 outer 모두에서 불가하거나 adjudicator가 image를 볼 수 없으면
+  원본 오류·재현 명령·미검증 행렬을 남기고 실행을 중단한다.
+
+최소 bridge 회귀 사례는 다음을 추가한다.
+
+| ID | 조건 | 기대 결과 |
+|---|---|---|
+| BR0 | 격리 Codex image adjudication challenge | 실제 image-open 귀속 성공; 불가하면 bridge case 시작 전 중단 |
+| BR1 | inner browser render 성공 | bridge 미사용, same-call 판정 |
+| BR2 | inner sandbox browser만 차단, outer와 image adjudication 가능 | 세 단계 lineage가 있는 유효 render 판정 |
+| BR3 | capture 전 snapshot hash 불일치 | `StaleRenderRequest`, browser 미실행 |
+| BR4 | capture 후 source/spec/design hash 변경 | adjudication 거부, `unverified` |
+| BR5 | viewport·state 일부 누락 또는 image/exit 오류 | `IncompleteCapture` 또는 `CaptureBlocked` |
+| BR6 | outer PNG만 있고 Codex image adjudication 없음 | Visual QA·`codex + render` 성공 금지 |
+| BR7 | Audit/GeneralAudit bridge | report/evidence만 변경, source·design·spec 불변 |
+| BR8 | Repair bridge | before 고정 → 허용 수정 → 새 hash의 같은 행렬 after → 재판정 |
+| BR9 | case 작성 script의 outer 실행 요구 | 실행 거부; plan-owned hashed adapter만 사용 |
+| BR10 | 외부 network·credential·evaluation root 밖 접근 요구 | 실행 거부와 명시적 blocker |
+
 ### 8.3 행동 불변 조건
 
 - `define-ui`는 제품 방향이 갈릴 때 UI 구조로 그 결정을 숨기지 않는다.
@@ -751,6 +944,9 @@ Codex가 추천 의견을 낼 수는 있지만 `owner: user` 항목을 자동으
   추측으로 고르지 않는다. 명시 명세 target과 별도 target이 다르면 명세 생성·수정 없이
   preflight `TargetConflict`로 끝낸다.
 - 공개·배포는 사용자의 명시적 승인과 프로젝트별 배포 권한 없이 실행하지 않는다.
+- outer runner는 화면을 캡처할 뿐 Visual QA·finding·acceptance 결과를 판정하지 않는다.
+- snapshot·scenario·image adjudication lineage가 끊기거나 stale이면 bridged render를
+  합격 근거로 사용하지 않는다.
 
 ## 9. 호환성과 전환
 
@@ -762,6 +958,9 @@ Codex가 추천 의견을 낼 수는 있지만 `owner: user` 항목을 자동으
   프로젝트 디자인 정본 앞에 삽입하는 이 문서 §4.3·§5 계약으로 확장된다.
 - 선행 정본의 브라우저 근거 없는 합격 금지, Audit 비파괴성, Repair before/after,
   Claude Code 트리 비변경 조건은 그대로 유지된다.
+- §8.2의 outer capture bridge는 격리 runtime 평가 harness의 선택적 어댑터다. 제품
+  플러그인에 MCP·브라우저 서버·상시 스크립트 의존성을 추가하지 않으며, outer PNG만으로
+  기존 `Render blocked`를 성공으로 바꾸지 않는다.
 
 ## 10. 참고한 자료와 읽은 범위
 
@@ -775,6 +974,10 @@ Codex가 추천 의견을 낼 수는 있지만 `owner: user` 항목을 자동으
 - `plans/20260905-codex-ui-workflow-skills-plan.md`: 독립 검토에서 드러난 D-001~D-006의
   경계와 권장안을 읽고 preflight·non-ready review·target identity·phase/status·failure
   affected scope 계약으로 확정함.
+- `plans/20260905-codex-ui-workflow-skills-execute-report.md`: 전체 읽음. outer Chromium은
+  같은 fixture를 렌더했지만 inner `workspace-write`에서는
+  `sandbox_host_linux.cc ... Operation not permitted`가 반복된 실측과 미검증 범위를
+  §8.2 render bridge의 입력 근거로 사용함.
 - [OpenAI Docs — Build skills](https://developers.openai.com/plugins/build/skills):
   스킬을 인식 가능한 사용자 목표에 집중하고 트리거·입력·성공 기준이 다르면 분리하며,
   reference·asset·script를 역할에 따라 배치하는 현재 규약을 읽음(2026-09-04).
@@ -806,6 +1009,13 @@ key를 가진 `UiTarget`으로 정규화하고 exact `(kind, key)`만 같은 tar
 `KnownAffectedScope | UnknownTargetScope` tagged union이며, 접근 불가 주 reference 때문에
 screen/flow 이름을 알 수 없으면 target 전체의 unknown scope를 이유와 함께 기록하고 이름을
 추측하지 않는다.
+
+2026-09-05 T-006 실측에서 inner `workspace-write`의 Chromium 생성이 반복 차단됐지만 같은
+snapshot의 outer Chromium 캡처는 가능했다. 이에 따라 §3.5의 `owner: codex`를 판정 주체로
+명확히 하고, §8.2에 evaluation-only `producer → outer capture → Codex adjudicator` 계약을
+확정했다. outer runner는 판정하지 않으며 immutable source/spec/design/plugin hash와 exact
+scenario lineage가 없으면 성공으로 셀 수 없다. 이 bridge는 제품 플러그인 runtime이나
+MCP 의존성을 추가하지 않는다.
 
 `accept-ui`·`test-ui`·`deploy-ui`·`prototype-ui`는 현재 필요하지 않다고 판정했으며, §7의
 재도입 트리거가 실제 사용에서 관측되면 별도 설계한다.

@@ -28,41 +28,77 @@ agent-skills/
 
 ## 설치
 
+먼저 이 레포를 마켓플레이스로 등록한 뒤 필요한 플러그인을 설치합니다.
+
 **Claude Code**
 
-```
+```text
 /plugin marketplace add jsj9346/agent-skills
 /plugin install design-harness@jsj9346-skills
 ```
 
 **Codex CLI**
 
-```
+```text
 codex plugin marketplace add jsj9346/agent-skills
 codex plugin add design-harness@jsj9346-skills
+```
+
+UI 작업용 Codex 전용 플러그인은 다음처럼 설치합니다.
+
+```text
 codex plugin add design-ui@jsj9346-skills
 ```
 
-## 포함된 스킬
+## 플러그인 카탈로그
 
-| 스킬 | 설명 | Claude Code | Codex CLI |
-| --- | --- | --- | --- |
-| [current-status](plugins/current-status) | 원장·기록·실물을 교차 검증해 현황을 판정하고 우선순위·다음 명령을 제안 | ✅ | ✅ |
-| [design-graph](plugins/design-graph) | 여러 실행 단위(Agent·Tool·Validator·스크립트·사람)를 연결해 파이프라인/멀티 에이전트 워크플로우 그래프를 설계 | ✅ | ✅ |
-| [design-harness](plugins/design-harness) | 프로젝트 목적에 맞는 AI 작업 환경(하네스) — CLAUDE.md/AGENTS.md·커맨드·훅·검증 체계를 설계 | ✅ | ✅ |
-| [design-loop](plugins/design-loop) | 목표 실행 루프(Observe→Decide→Act→Verify)를 설계해 복붙 가능한 `/goal` 명령어 한 줄로 압축 제안 | ✅ | ✅ |
-| [define-ui · design-ui · review-ui](codex-plugins/design-ui) | 구현 전 UI 명세(`define-ui`), 실제 UI 제작과 maker QA(`design-ui`), 독립 검토·명시적 수정(`review-ui`) | – | ✅ |
-| [documentize-context](plugins/documentize-context) | 세션의 맥락(목표·결정·피드백·워크플로우)을 재사용 가능한 마크다운 문서로 정리 | ✅ | ✅ |
-| [execute](plugins/execute) | 확정된 플랜을 실행하고 실행 리포트(작업 원장)·독립 검증·커밋으로 닫음 | ✅ | ✅ |
-| [explain](plugins/explain) | 작업·문서·코드를 비개발자 눈높이로 쉽게 설명(읽기 전용, 대상 수정 없음) | ✅ | ✅ |
-| [interview](plugins/interview) | 작업을 설계하기 전에 인터뷰 형식으로 "무엇을 왜 만들까"를 확정해 결정 기록으로 남김 | ✅ | ✅ |
-| [make-agents](plugins/make-agents) | 프로젝트 목적에 맞는 서브에이전트/에이전트 팀을 설계·생성하고 스킬을 라우팅 | ✅ | ✅ |
-| [make-design](plugins/make-design) | 확정된 방향(결정 기록·미결 항목)을 경계·계약의 정본 설계 문서로 확정 | ✅ | ✅ |
-| [make-plan](plugins/make-plan) | 설계 문서를 실행 가능한 플랜(작업·검증 조건·의존성·롤백)으로 변환 | ✅ | ✅ |
-| [milestone](plugins/milestone) | 프로젝트의 활성 마일스톤(하나)을 종료 조건 기준으로 설정·조회·종료 | ✅ | ✅ |
-| [research](plugins/research) | 작업 중 막힌 질문을 출처 붙은 답으로 바꿔 조사 노트 문서로 남김(결정은 하지 않음) | ✅ | ✅ |
-| [review-harness](plugins/review-harness) | 이미 구축된 AI 작업 환경의 중복 하네스·과최적화를 진단하고 걷어냄 | ✅ | ✅ |
-| [verify](plugins/verify) | 작업물을 정본 문서에 대조해 독립 검증하고 판정 리포트 문서를 남김 | ✅ | ✅ |
+### Claude Code와 Codex 공용
+
+| 플러그인 | 설명 |
+| --- | --- |
+| [current-status](plugins/current-status) | 원장·기록·실물을 교차 검증해 현황을 판정하고 우선순위와 다음 명령을 제안 |
+| [design-graph](plugins/design-graph) | Agent·Tool·Validator·사람을 연결하는 파이프라인과 워크플로 그래프를 설계 |
+| [design-harness](plugins/design-harness) | 프로젝트 목적에 맞는 AI 작업 환경과 검증 체계를 설계 |
+| [design-loop](plugins/design-loop) | Observe→Decide→Act→Verify 목표 루프를 설계해 실행 명령으로 압축 |
+| [documentize-context](plugins/documentize-context) | 세션의 목표·결정·피드백·워크플로를 재사용 가능한 문서로 정리 |
+| [execute](plugins/execute) | 확정된 플랜을 구현·검증하고 실행 리포트와 커밋으로 마무리 |
+| [explain](plugins/explain) | 작업·문서·코드를 비개발자 눈높이로 설명하는 읽기 전용 스킬 |
+| [interview](plugins/interview) | 설계 전에 무엇을 왜 만들지 인터뷰하고 결정 기록으로 확정 |
+| [make-agents](plugins/make-agents) | 프로젝트에 맞는 서브에이전트 팀을 설계하고 스킬 호출을 라우팅 |
+| [make-design](plugins/make-design) | 결정 기록이나 미결 항목을 경계와 계약이 명확한 설계 문서로 확정 |
+| [make-plan](plugins/make-plan) | 설계 문서를 검증 조건·의존성·롤백이 포함된 실행 플랜으로 변환 |
+| [milestone](plugins/milestone) | 명령으로 측정 가능한 종료 조건을 기준으로 활성 마일스톤을 관리 |
+| [research](plugins/research) | 작업 중 생긴 질문을 출처가 포함된 조사 노트로 정리 |
+| [review-harness](plugins/review-harness) | 기존 AI 작업 환경의 중복과 과최적화를 진단·정리 |
+| [verify](plugins/verify) | 작업물을 정본 계약과 대조해 독립 판정 리포트를 작성 |
+
+### Codex 전용
+
+| 플러그인 | 포함 스킬 | 설명 |
+| --- | --- | --- |
+| [design-ui](codex-plugins/design-ui) | `define-ui`, `design-ui`, `review-ui` | 구현 전 UI 정의부터 코드 구현, 실제 렌더링 검토까지 연결하는 UI 워크플로 |
+
+## UI 디자인 워크플로 (Codex)
+
+`design-ui` 플러그인은 역할이 분리된 세 스킬을 제공합니다.
+
+```text
+요구사항
+  ↓
+define-ui     화면·흐름·상태·반응형 규칙과 완료 기준 정의 (선택)
+  ↓
+design-ui     실제 UI 코드 구현 + 제작자 Visual QA
+  ↓
+review-ui     독립 Audit, 명시적으로 요청된 경우 Repair
+  ↓
+사용자 승인·공개
+```
+
+- `$define-ui`: 구현 전에 target별 `ready-for-build` UI 명세가 필요할 때 사용합니다.
+- `$design-ui`: 새 UI 제작, 재설계, 확장 또는 참고물의 프론트엔드 코드 번역에 사용합니다.
+- `$review-ui`: 구현 결과를 독립적으로 검토합니다. 기본 Audit은 제품 소스를 수정하지 않습니다.
+
+자세한 사용법과 예시는 [design-ui 플러그인 문서](codex-plugins/design-ui)를 참고하세요.
 
 ## 개발 사이클 체인
 

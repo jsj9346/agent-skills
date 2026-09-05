@@ -1,6 +1,6 @@
 {
   "name": "design-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "구현 전 UI 정의, 실제 UI 제작과 독립 Visual QA를 연결",
   "author": {
     "name": "jsj9346"
